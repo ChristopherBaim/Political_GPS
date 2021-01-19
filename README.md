@@ -30,15 +30,6 @@ by federal district were also available  and were added to the shapefile using G
 | :---: | :---: |
 | *Montreal Districts (party by color)* | *Map Overlay* | 
 
-The geographic data was extremely detailed with over 500,000 vertices. As the project didn’t require such granularity, 
-and it would make deploying to a Pi Zero that much more difficult, I decided to simplify the geometry. Using the 
-[Douglas-Peucker algorithm](https://en.wikipedia.org/wiki/Ramer%E2%80%93Douglas%E2%80%93Peucker_algorithm ), I was able 
-to remove 90% of the vertices while maintaining fine geometric detail.
-
-| <img src="/assets/Simplification.gif" height="300"></img> | <img src="/assets/Simplification_vertices.gif" height="300"></img> | 
-| :---: | :---: |
-| *Simplified* | *Simplified (Vertices)* |
-
 ### District location:
 Next, I needed a way to determine if my latitude/longitude coordinate was in a particular district. As districts were 
 represented by arrays of vertices, this was a [point-in-polygon problem](https://en.wikipedia.org/wiki/Point_in_polygon) 
@@ -62,12 +53,20 @@ Once enclaved districts were ruled out, I could check just the outer polygons of
 While checking every district sequentially runs quickly on a desktop, it was far too inefficient to run on a Pi Zero. 
 Each point-in-polygon check only has a [time complexity of O(n)](https://www.sciencedirect.com/science/article/pii/S0098300496000714)
 where n is the number of vertices, but because of the large number of vertices and hundreds of districts to check, 
-it was still very slow. The geometry simplification certainly helped by reducing 90% of the total vertices, 
-but more optimization was needed. 
+it was still very slow. If the number of vertices was reduced, I could improve performance proportionally.
 
-I decided the best way to reduce the number of districts that needed to be searched was to sort the districts by 
-proximity. Specifically, how far my current position was to the center (centroid) of each district. Using QGIS, 
-I computed the centroid of each district polygon and added it to my dataset. 
+The geographic data was extremely detailed with over 500,000 vertices. As this level of granularity, down to the meter,
+wasn't required for the project, I was able to simplify the geometry. Using the [Douglas-Peucker algorithm](https://en.wikipedia.org/wiki/Ramer%E2%80%93Douglas%E2%80%93Peucker_algorithm )
+, I was able to remove 90% of the vertices while still maintaining fine geometric detail.
+
+| <img src="/assets/Simplification.gif" height="300"></img> | <img src="/assets/Simplification_vertices.gif" height="300"></img> | 
+| :---: | :---: |
+| *Simplified* | *Simplified (Vertices)* |
+
+The geometry simplification certainly helped by significantly decreasing the time required to search each district, 
+but district localization was still too slow. I decided the best way to reduce the number of districts that needed 
+to be searched was to sort the districts by proximity. Specifically, how far my current position was to the center 
+(centroid) of each district. Using QGIS, I computed the centroid of each district polygon and added it to my dataset. 
 
 | <img src="/assets/Distance_Arrows.png" height="300"></img> | 
 | :---: |
@@ -75,7 +74,8 @@ I computed the centroid of each district polygon and added it to my dataset.
 
 Calculating the distance between my current position and the centroid of each district was extremely quick. 
 Sorting districts by proximity has a time complexity of O(n log n) using Python’s Timsort method. However, following 
-the first sort, the order of districts by proximity remains largely stable and only requires limited sorting. 
+the first sort, the order of districts by proximity remains largely stable and only requires limited sorting. This meant
+that, on average, I only had to check the closest 1-2 districts each time.
 
 Together, the optimization from reducing the total vertices and proximity sorting districts was enough that the program 
 could run using real-time GPS data on a Pi Zero.
