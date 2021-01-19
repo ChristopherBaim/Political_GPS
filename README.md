@@ -26,7 +26,7 @@ for all 338 federal districts were available on the Canadian government website 
 [Election results](https://www.elections.ca/content.aspx?section=res&dir=rep/off/42gedata&document=summary&lang=e)
 by federal district were also available  and were added to the shapefile using GIS software (QGIS).
 
-| <img src="/assets/Montreal Map.png" height="300"></img> | <img src="/assets/Montreal Map Overlay.png" height="300"></img> | 
+| <img src="/assets/Montreal Map.png" height="300" width="300"></img> | <img src="/assets/Montreal Map Overlay.png" height="300" width="300"></img> | 
 | :---: | :---: |
 | *Montreal Districts (party by color)* | *Map Overlay* | 
 
