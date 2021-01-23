@@ -1,6 +1,6 @@
 ## Political GPS
 Political GPS is a program that uses real-time GPS data to display the electoral district you are in and the political party in power. 
-Election results and geographic boundary data is stored locally, so no internet connection is required.
+Election results and geographic boundary data are stored locally, so no internet connection is required.
 
 Optimized to run on a [Raspberry Pi Zero W](https://www.raspberrypi.org/products/raspberry-pi-zero-w/) with
  [16x2 LCD RGB backlit display](https://www.sparkfun.com/products/10862) and [Adafruit Ultimate GPS module](https://www.adafruit.com/product/746).
