@@ -5,7 +5,7 @@ Election results and geographic boundary data is stored locally, so no internet 
 Optimized to run on a [Raspberry Pi Zero W](https://www.raspberrypi.org/products/raspberry-pi-zero-w/) with
  [16x2 LCD RGB backlit display](https://www.sparkfun.com/products/10862) and [Adafruit Ultimate GPS module](https://www.adafruit.com/product/746).
 
-| <img src="assets/GPSDisplay.gif" height="150"></img> | 
+| <img src="assets/GPSDisplay.gif" height="150"> | 
 | :---: |
 | *Political GPS Display* |
 
@@ -26,7 +26,7 @@ for all 338 federal districts were available on the Canadian government website 
 [Election results](https://www.elections.ca/content.aspx?section=res&dir=rep/off/42gedata&document=summary&lang=e)
 by federal district were also available  and were added to the shapefile using GIS software (QGIS).
 
-| <img src="/assets/Montreal Map.png" height="300" width="300"></img> | <img src="/assets/Montreal Map Overlay.png" height="300" width="300"></img> | 
+| <img src="/assets/Montreal Map.png" height="300" width="300"> | <img src="/assets/Montreal Map Overlay.png" height="300" width="300"> | 
 | :---: | :---: |
 | *Montreal Districts (party by color)* | *Map Overlay* | 
 
@@ -41,7 +41,7 @@ These encompassing districts were each defined by multiple polygons. A single ou
 “donut holes” or, given that these are Canadian districts, “Timbits”. If I was located inside one of these holes and I 
 only checked the outer donut polygon, I would wrongfully assume I was in the encompassing district rather than the enclave.
 
-| <img src="/assets/DonutExample.png" height="300"></img> | 
+| <img src="/assets/DonutExample.png" height="300"> | 
 | :---: |
 | *Enclave district* | 
 
@@ -59,7 +59,7 @@ The geographic data was extremely detailed with over 500,000 vertices. As this l
 wasn't required for the project, I was able to simplify the geometry. Using the [Douglas-Peucker algorithm](https://en.wikipedia.org/wiki/Ramer%E2%80%93Douglas%E2%80%93Peucker_algorithm )
 , I was able to remove 90% of the vertices while still maintaining fine geometric detail.
 
-| <img src="/assets/Simplification.gif" height="300"></img> | <img src="/assets/Simplification_vertices.gif" height="300"></img> | 
+| <img src="/assets/Simplification.gif" height="300"> | <img src="/assets/Simplification_vertices.gif" height="300"> | 
 | :---: | :---: |
 | *Simplified* | *Simplified (Vertices)* |
 
@@ -68,7 +68,7 @@ but district localization was still too slow. I decided the best way to reduce t
 to be searched was to sort the districts by proximity. Specifically, how far my current position was to the center 
 (centroid) of each district. Using QGIS, I computed the centroid of each district polygon and added it to my dataset. 
 
-| <img src="/assets/Distance_Arrows.png" height="300"></img> | 
+| <img src="/assets/Distance_Arrows.png" height="300"> | 
 | :---: |
 | *Distance to district center* |
 
@@ -86,7 +86,7 @@ could run using real-time GPS data on a Pi Zero.
 - [16x2 LCD RGB backlit display](https://www.sparkfun.com/products/10862) 
 - [Adafruit Ultimate GPS module](https://www.adafruit.com/product/746).
 
-| <img src="/assets/GPS Pi Hat_bb.png" height="300"></img> | 
+| <img src="/assets/GPS Pi Hat_bb.png" height="300"> | 
 | :---: |
 | *Wiring between components* |
 
